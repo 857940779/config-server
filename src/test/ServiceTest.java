@@ -1,4 +1,3 @@
-import com.springmvc.common.MyPlaceHolder;
 import com.springmvc.service.DataService;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,39 +26,6 @@ public class ServiceTest {
     @Test
     public void test(){
         dataService.testData();
-    }
-
-    @Test
-    public void testGetProperty(){
-        System.out.println(MyPlaceHolder.getValue("database.url"));
-    }
-
-    @Test
-    public void testSetProperty(){
-        MyPlaceHolder.setValue("database.url","aslkdfjklsjdklfklsajfkljfd");
-        System.out.println(MyPlaceHolder.getValue("database.url"));
-    }
-
-    @Test
-    public void testScheduleRefresh(){
-        for(int i=0;i<3;i++){
-            System.out.println(MyPlaceHolder.getValue("database.url"));
-            try{
-                Thread.sleep(10*1000);
-            }catch (Exception e){
-               e.printStackTrace();
-            }
-        }
-    }
-
-
-    @Test
-    public void testMq(){
-        try {
-            Thread.sleep(10*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }

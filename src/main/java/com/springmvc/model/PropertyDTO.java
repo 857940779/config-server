@@ -4,7 +4,7 @@ package com.springmvc.model;
  * @Author: luohanwen
  * @Date: 2019/9/12 16:13
  *
- * 配置类dto
+ * 配置类dto,app端需要接受的数据
  */
 public class PropertyDTO {
     private String key;
