@@ -3,7 +3,7 @@ package com.springmvc.dbdo;
 import java.util.Date;
 
 public class ConfigPropertiesDO {
-    private Long id;
+    private Integer id;
 
     private Date createTime;
 
@@ -15,11 +15,11 @@ public class ConfigPropertiesDO {
 
     private String properties;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

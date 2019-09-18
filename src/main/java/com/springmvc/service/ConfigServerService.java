@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import com.springmvc.model.ConfigPropertyDTO;
 import com.springmvc.model.ConfigServiceDTO;
 
 /**
@@ -22,4 +23,5 @@ public interface ConfigServerService {
      * @return
      */
     int deleteServer(Integer serviceId);
+
 }

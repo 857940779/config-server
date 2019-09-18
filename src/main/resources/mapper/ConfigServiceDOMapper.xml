@@ -159,4 +159,11 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getServerByIPAndEnvirAndServiceName" parameterType="com.springmvc.dbdo.ConfigServiceDO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from config_service
+    where ip = #{ip} and environment=#{environment} and service_name=#{serviceName}
+  </select>
 </mapper>

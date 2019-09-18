@@ -1,5 +1,7 @@
 package com.springmvc.model;
 
+import java.util.List;
+
 /**
  * @Author: luohanwen
  * @Date: 2019/9/17 16:54
@@ -7,7 +9,7 @@ package com.springmvc.model;
  */
 public class ConfigPropertyDTO {
     private Integer serviceId;  //服务id
-    private String str;         //配置的json串
+    private List<PropertyDTO> list;         //配置信息
 
     public Integer getServiceId() {
         return serviceId;
@@ -17,11 +19,11 @@ public class ConfigPropertyDTO {
         this.serviceId = serviceId;
     }
 
-    public String getStr() {
-        return str;
+    public List<PropertyDTO> getList() {
+        return list;
     }
 
-    public void setStr(String str) {
-        this.str = str;
+    public void setList(List<PropertyDTO> list) {
+        this.list = list;
     }
 }

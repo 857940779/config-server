@@ -16,4 +16,7 @@ public interface ConfigServiceDOMapper {
     int updateByPrimaryKeySelective(ConfigServiceDO record);
 
     int updateByPrimaryKey(ConfigServiceDO record);
+
+    //根据ip，环境变量,服务名获取服务
+    ConfigServiceDO getServerByIPAndEnvirAndServiceName(ConfigServiceDO configServiceDO);
 }

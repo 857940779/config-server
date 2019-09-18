@@ -1,6 +1,10 @@
 package com.springmvc.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.springmvc.common.BaseResultDTO;
+import com.springmvc.model.ConfigPropertyDTO;
 import com.springmvc.model.ConfigServiceDTO;
+import com.springmvc.service.ConfigPropertyService;
 import com.springmvc.service.ConfigServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +19,9 @@ public class WebController {
     @Autowired
     private ConfigServerService configServerService;
 
+    @Autowired
+    private ConfigPropertyService configPropertyService;
+
     /**
      * 添加配置，修改或者添加，公用
      * @return
@@ -23,7 +30,10 @@ public class WebController {
     @ResponseBody
     public String addOrUpdateProperty(ConfigServiceDTO configServiceDTO) {
         configServerService.addOrUpdateServer(configServiceDTO);
-        return null;
+
+        BaseResultDTO resultDTO=new BaseResultDTO();
+        resultDTO.setCode(0);
+        return JSON.toJSONString(resultDTO);
     }
 
 
@@ -38,7 +48,8 @@ public class WebController {
      */
     @RequestMapping(value = "service",method = RequestMethod.POST)
     @ResponseBody
-    public String addOrUpdateService(){
+    public String addOrUpdateService(ConfigPropertyDTO configPropertyDTO){
+        configPropertyService.addOrUpdateProperty(configPropertyDTO);
         return null;
     }
 

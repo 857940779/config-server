@@ -7,7 +7,7 @@ public class ServicePropertyMapperDO {
 
     private Integer propertyId;
 
-    private Byte state;
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class ServicePropertyMapperDO {
         this.propertyId = propertyId;
     }
 
-    public Byte getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Byte state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 }

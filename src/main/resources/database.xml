@@ -57,6 +57,7 @@
         <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
 
+    <!--要配置这个，否则MapScan注解无用-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.springmvc.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />

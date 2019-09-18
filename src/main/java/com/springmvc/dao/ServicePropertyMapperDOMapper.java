@@ -18,4 +18,6 @@ public interface ServicePropertyMapperDOMapper {
     int updateByPrimaryKey(ServicePropertyMapperDO record);
 
     int delByServiceId(Integer servcieId);
+
+    ServicePropertyMapperDO queryByServiceId(Integer serviceId);
 }
