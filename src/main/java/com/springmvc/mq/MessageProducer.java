@@ -1,5 +1,7 @@
 package com.springmvc.mq;
 
+import com.alibaba.fastjson.JSON;
+import com.springmvc.model.TopicPropertyDTO;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,13 @@ public class MessageProducer {
     @Resource
     private Destination queueDestination;
 
-    public void sendMessage(final String message) {
-        activeMqJmsTemplate.send(queueDestination, new MessageCreator() {
+    @Resource
+    private Destination topicDestination;
+
+    public void sendMessage(final TopicPropertyDTO propertyDTO) {
+        activeMqJmsTemplate.send(topicDestination, new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(message);
+                return session.createTextMessage(JSON.toJSONString(propertyDTO));
             }
         });
 

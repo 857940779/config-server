@@ -21,4 +21,13 @@ public enum  Environment {
         this.name=name;
     }
 
+    public static String getNameByCode(int code){
+        Environment[] environments=Environment.values();
+        for(Environment environment:environments){
+            if(environment.code==code){
+                return environment.name;
+            }
+        }
+        return null;
+    }
 }

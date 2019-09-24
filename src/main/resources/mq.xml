@@ -30,12 +30,18 @@
         <property name="connectionFactory" ref="mqConnectionFactory" />
     </bean>
 
+    <!-- 配置queue目的地-->
     <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg>
             <value>propertyQueue</value>
         </constructor-arg>
     </bean>
 
-    <!-- 配置消息生产者-->
+    <!--配置topic目的地-->
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg>
+            <value>propertyTopic</value>
+        </constructor-arg>
+    </bean>
 
 </beans>

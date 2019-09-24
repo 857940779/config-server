@@ -62,7 +62,7 @@ public class ConfigServerTest {
         List<PropertyDTO> list=new ArrayList<>();
         PropertyDTO propertyDTO=new PropertyDTO();
         propertyDTO.setKey("database.url");
-        propertyDTO.setValue("127.0.0.1:3306");
+        propertyDTO.setValue("jdbc:mysql://127.0.0.1:3306/config_center?characterEncoding=UTF8&allowMultiQueries\\=true");
         list.add(propertyDTO);
 
         PropertyDTO propertyDTO2=new PropertyDTO();
@@ -85,6 +85,15 @@ public class ConfigServerTest {
         propertyDTO5.setValue("127.0.0.1:6389");
         list.add(propertyDTO5);
 
+        PropertyDTO propertyDTO6=new PropertyDTO();
+        propertyDTO6.setKey("jdbc.username");
+        propertyDTO6.setValue("root");
+        list.add(propertyDTO6);
+
+        PropertyDTO propertyDTO7=new PropertyDTO();
+        propertyDTO7.setKey("jdbc.password");
+        propertyDTO7.setValue("root");
+        list.add(propertyDTO7);
         configPropertyDTO.setList(list);         //配置信息
 
         configPropertyService.addOrUpdateProperty(configPropertyDTO);

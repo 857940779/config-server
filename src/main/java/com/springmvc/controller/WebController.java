@@ -23,12 +23,12 @@ public class WebController {
     private ConfigPropertyService configPropertyService;
 
     /**
-     * 添加配置，修改或者添加，公用
+     * 添加服务
      * @return
      */
-    @RequestMapping(value="property",method = RequestMethod.POST)
+    @RequestMapping(value="service",method = RequestMethod.POST)
     @ResponseBody
-    public String addOrUpdateProperty(ConfigServiceDTO configServiceDTO) {
+    public String addOrUpdateService(ConfigServiceDTO configServiceDTO) {
         configServerService.addOrUpdateServer(configServiceDTO);
 
         BaseResultDTO resultDTO=new BaseResultDTO();
@@ -37,23 +37,23 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = "property",method = RequestMethod.DELETE)
+    @RequestMapping(value = "service",method = RequestMethod.DELETE)
     public String delProperty(Integer serviceId){
         configServerService.deleteServer(serviceId);
         return null;
     }
 
     /**
-     * 添加服务
+     * 添加配置
      */
-    @RequestMapping(value = "service",method = RequestMethod.POST)
+    @RequestMapping(value = "property",method = RequestMethod.POST)
     @ResponseBody
-    public String addOrUpdateService(ConfigPropertyDTO configPropertyDTO){
+    public String addOrUpdateProperty(ConfigPropertyDTO configPropertyDTO){
         configPropertyService.addOrUpdateProperty(configPropertyDTO);
         return null;
     }
 
-    @RequestMapping(value = "service",method = RequestMethod.DELETE)
+    @RequestMapping(value = "property",method = RequestMethod.DELETE)
     public String delService(){
         return null;
     }

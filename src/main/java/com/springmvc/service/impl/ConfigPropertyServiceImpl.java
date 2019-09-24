@@ -1,6 +1,7 @@
 package com.springmvc.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.springmvc.common.Environment;
 import com.springmvc.dao.ConfigPropertiesDOMapper;
 import com.springmvc.dao.ConfigServiceDOMapper;
 import com.springmvc.dao.ServicePropertyMapperDOMapper;
@@ -10,6 +11,8 @@ import com.springmvc.dbdo.ServicePropertyMapperDO;
 import com.springmvc.model.ConfigPropertyDTO;
 import com.springmvc.model.ConfigServiceDTO;
 import com.springmvc.model.PropertyDTO;
+import com.springmvc.model.TopicPropertyDTO;
+import com.springmvc.mq.MessageProducer;
 import com.springmvc.service.ConfigPropertyService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * @Author: luohanwen
@@ -37,9 +42,18 @@ public class ConfigPropertyServiceImpl implements ConfigPropertyService {
     @Autowired
     private ConfigServiceDOMapper configServiceDOMapper;
 
+    @Autowired
+    private MessageProducer messageProducer;
+
     @Override
     @Transactional(isolation= Isolation.READ_COMMITTED,propagation= Propagation.REQUIRED)
     public int addOrUpdateProperty(ConfigPropertyDTO configPropertyDTO) {
+        //先去判断有无该服务
+        ConfigServiceDO configServiceDO=configServiceDOMapper.selectByPrimaryKey(configPropertyDTO.getServiceId());
+        if(configPropertyDTO==null){
+            return 0;
+        }
+
         //先去数据库映射表，查询有无配置，如果有，那么修改，如果没有，那么插入
         ServicePropertyMapperDO servicePropertyMapperDO=servicePropertyMapperDOMapper.queryByServiceId(configPropertyDTO.getServiceId());
         if(servicePropertyMapperDO==null){
@@ -63,6 +77,15 @@ public class ConfigPropertyServiceImpl implements ConfigPropertyService {
             configPropertiesDO.setProperties(JSON.toJSONString(configPropertyDTO.getList()));
             configPropertiesDOMapper.updateByPrimaryKey(configPropertiesDO);
         }
+
+        TopicPropertyDTO propertyDTO=new TopicPropertyDTO();
+        propertyDTO.setEnvironmentName(Environment.getNameByCode(configServiceDO.getEnvironment()));
+        propertyDTO.setServiceName(configServiceDO.getServiceName());
+        propertyDTO.setList(configPropertyDTO.getList());
+
+
+        //同步调用mq通知client刷新配置，避免数据库插入了，client没有刷新的问题
+        messageProducer.sendMessage(propertyDTO);
 
         return 1;
     }
