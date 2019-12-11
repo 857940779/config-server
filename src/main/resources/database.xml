@@ -25,12 +25,33 @@
         <property name="minEvictableIdleTimeMillis" value="30000" />
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <!-- 解密密码必须要配置的项 -->
-        <property name="filters" value="config" />
+
+
+        <property name="filters" value="stat,log4j" ></property>
+
         <property name="connectionProperties" value="config.decrypt=false" />
 
         <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
         <property name="validationQuery" value="select 1 " />
+
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter"/>
+                <ref bean="log-filter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 慢SQL记录 -->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <!-- 慢sql时间设置,即执行时间大于200毫秒的都是慢sql -->
+        <property name="slowSqlMillis" value="200"/>
+        <property name="logSlowSql" value="true"/>
+    </bean>
+
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <property name="dataSourceLogEnabled" value="true" />
+        <property name="statementExecutableSqlLogEnable" value="true" />
     </bean>
 
     <!-- 将数据源映射到sqlSessionFactory中 -->
