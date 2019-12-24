@@ -50,7 +50,7 @@ public class ConfigPropertyServiceImpl implements ConfigPropertyService {
     public int addOrUpdateProperty(ConfigPropertyDTO configPropertyDTO) {
         //先去判断有无该服务
         ConfigServiceDO configServiceDO=configServiceDOMapper.selectByPrimaryKey(configPropertyDTO.getServiceId());
-        if(configPropertyDTO==null){
+        if(configServiceDO==null){
             return 0;
         }
 

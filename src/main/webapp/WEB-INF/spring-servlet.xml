@@ -25,4 +25,18 @@
 
     <!-- 对静态资源文件的访问，不配置这个，无法读取到cs，js等。-->
     <mvc:resources mapping="/bootstrap-3.3.7/**" location="/bootstrap-3.3.7/" />
+
+    <!--<mvc:message-converters>-->
+        <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+            <!--<property name="objectMapper">-->
+                <!--<bean class="com.fasterxml.jackson.databind.ObjectMapper">-->
+                    <!--<property name="dateFormat">-->
+                        <!--<bean class="java.text.SimpleDateFormat">-->
+                            <!--<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />-->
+                        <!--</bean>-->
+                    <!--</property>-->
+                <!--</bean>-->
+            <!--</property>-->
+        <!--</bean>-->
+    <!--</mvc:message-converters>-->
 </beans>
